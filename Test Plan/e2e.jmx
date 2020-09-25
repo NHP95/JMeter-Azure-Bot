@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="azure-bot" enabled="true">
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="BOT_TOKEN" elementType="Argument">
+            <stringProp name="Argument.name">BOT_TOKEN</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TTS_TOKEN_ISSUER_HOST" elementType="Argument">
+            <stringProp name="Argument.name">TTS_TOKEN_ISSUER_HOST</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TTS_HOST" elementType="Argument">
+            <stringProp name="Argument.name">TTS_HOST</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TTS_SUBSCRIPTION_KEY" elementType="Argument">
+            <stringProp name="Argument.name">TTS_SUBSCRIPTION_KEY</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="STT_HOST" elementType="Argument">
+            <stringProp name="Argument.name">STT_HOST</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="STT_SUBSCRIPTION_KEY" elementType="Argument">
+            <stringProp name="Argument.name">STT_SUBSCRIPTION_KEY</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CID" elementType="Argument">
+            <stringProp name="Argument.name">CID</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TIMEOUT" elementType="Argument">
+            <stringProp name="Argument.name">TIMEOUT</stringProp>
+            <stringProp name="Argument.value">${__P(timeout, 30000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ENV_HOST" elementType="Argument">
+            <stringProp name="Argument.name">ENV_HOST</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="THREAD" elementType="Argument">
+            <stringProp name="Argument.name">THREAD</stringProp>
+            <stringProp name="Argument.value">${__P(thread, 30)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RAMP_UP_PERIOD" elementType="Argument">
+            <stringProp name="Argument.name">RAMP_UP_PERIOD</stringProp>
+            <stringProp name="Argument.value">${__P(rampUpPeriod, 30)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="FILE_NAME" elementType="Argument">
+            <stringProp name="Argument.name">FILE_NAME</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TIMESTAMP" elementType="Argument">
+            <stringProp name="Argument.name">TIMESTAMP</stringProp>
+            <stringProp name="Argument.value">${__time()}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BASE_DIR" elementType="Argument">
+            <stringProp name="Argument.name">BASE_DIR</stringProp>
+            <stringProp name="Argument.value">${__groovy(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Conversations" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${THREAD}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RAMP_UP_PERIOD}</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration">${DURATION}</stringProp>
+        <stringProp name="ThreadGroup.delay">10</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="filename">../${FILE_NAME}.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="variableNames">ANSWERS</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Answer generators" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">def params = vars.get(&quot;ANSWERS&quot;).split(&quot;;&quot;);
+vars.put(&quot;counter&quot;, params.size().toString());
+def counter = 0;
+params.each {
+	counter++
+	vars.put(&quot;${PHONE}_answer_${counter}&quot;,it.toString());
+}</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="TTS TOKEN ISSUE" enabled="true">
+          <stringProp name="IncludeController.includepath">../Services/tts-token-issuer.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="INIT CONVERSATION" enabled="true">
+          <stringProp name="IncludeController.includepath">../Services/bot-init-conversation.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">${counter}</stringProp>
+        </LoopController>
+        <hashTree>
+          <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
+            <stringProp name="CounterConfig.start">1</stringProp>
+            <stringProp name="CounterConfig.end">${counter}</stringProp>
+            <stringProp name="CounterConfig.incr">1</stringProp>
+            <stringProp name="CounterConfig.name">ANSWER_INDEX</stringProp>
+            <stringProp name="CounterConfig.format"></stringProp>
+            <boolProp name="CounterConfig.per_user">true</boolProp>
+          </CounterConfig>
+          <hashTree/>
+          <kg.apc.jmeter.control.ParameterizedController guiclass="kg.apc.jmeter.control.ParameterizedControllerGui" testclass="kg.apc.jmeter.control.ParameterizedController" testname="ANSWER QUESTION" enabled="true">
+            <elementProp name="ParameterizedController" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="MESSAGE" elementType="Argument">
+                  <stringProp name="Argument.name">MESSAGE</stringProp>
+                  <stringProp name="Argument.value"> ${__V(${PHONE}_answer_${ANSWER_INDEX})}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+                <elementProp name="PATIENT_ID" elementType="Argument">
+                  <stringProp name="Argument.name">PATIENT_ID</stringProp>
+                  <stringProp name="Argument.value">${PATIENT_ID}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+                <elementProp name="CONTEXT" elementType="Argument">
+                  <stringProp name="Argument.name">CONTEXT</stringProp>
+                  <stringProp name="Argument.value">SURVEY_DETAILS</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+                <elementProp name="FILE_PATH" elementType="Argument">
+                  <stringProp name="Argument.name">FILE_PATH</stringProp>
+                  <stringProp name="Argument.value">${BASE_DIR}/never.wav</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </kg.apc.jmeter.control.ParameterizedController>
+          <hashTree>
+            <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="SPEECH TO TEXT" enabled="true">
+              <stringProp name="IncludeController.includepath">../Services/stt-speech-to-text.jmx</stringProp>
+            </IncludeController>
+            <hashTree/>
+            <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="SEND MESSAGE" enabled="true">
+              <stringProp name="IncludeController.includepath">../Services/bot-send-message.jmx</stringProp>
+            </IncludeController>
+            <hashTree/>
+            <kg.apc.jmeter.control.ParameterizedController guiclass="kg.apc.jmeter.control.ParameterizedControllerGui" testclass="kg.apc.jmeter.control.ParameterizedController" testname="TEXT TO SPEECH" enabled="true">
+              <elementProp name="ParameterizedController" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="TEXT_TO_SPEECH" elementType="Argument">
+                    <stringProp name="Argument.name">TEXT_TO_SPEECH</stringProp>
+                    <stringProp name="Argument.value">I registered your answer to be: never.</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+            </kg.apc.jmeter.control.ParameterizedController>
+            <hashTree>
+              <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="TEXT TO SPEECH" enabled="true">
+                <stringProp name="IncludeController.includepath">../Services/tts-text-to-speech.jmx</stringProp>
+              </IncludeController>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+        <eu.luminis.jmeter.wssampler.CloseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.CloseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.CloseWebSocketSampler" testname="WebSocket Close" enabled="true">
+          <stringProp name="statusCode">1000</stringProp>
+          <stringProp name="readTimeout">${TIMEOUT}</stringProp>
+        </eu.luminis.jmeter.wssampler.CloseWebSocketSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-2102291866">WebSocket I/O error: end of stream</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_message</stringProp>
+            <boolProp name="Assertion.assume_success">true</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <eu.luminis.jmeter.wssampler.TextFrameFilter guiclass="eu.luminis.jmeter.wssampler.TextFrameFilterGui" testclass="eu.luminis.jmeter.wssampler.TextFrameFilter" testname="WebSocket Text Frame Filter" enabled="true">
+            <stringProp name="comparisonType">IsPlain</stringProp>
+            <stringProp name="matchValue"></stringProp>
+          </eu.luminis.jmeter.wssampler.TextFrameFilter>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
